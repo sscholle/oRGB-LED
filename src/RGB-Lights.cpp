@@ -1,10 +1,22 @@
 /*
   oRGB - LED Sketch
 
-  Red, Green and Blue LED stripas can fade into different colours. Like a Rainbow,
-  but more BRILLIANT! It 
+  Red, Green and Blue LED strips can fade into different colours. Like a Rainbow,
+  but more BRILLIANT!
+
+  The Red, Green and Blue LEDs are switched on separately, very quickly, which gives
+  a trippy visual effect when the lights or the viewer moves. This can work well on
+  a spinning LED mount.
+
+  Main Behaviour:
+  - A color is calculated in continuous loops, using FADEAMNT and MAX/MIN BIRGHTNESS
+  - Each color starts at a different brightness, like a color wheel
+  - When a 'color' is output, the separate color channels are individually switched ON
+    - this results in less power consumption
+    - the visual effect looks stimulating
+    - the effect was tweaked to balance between least strobing and low power useage 
   
-  Seee github for more info: https://github.com/sscholle/oRGB-LED
+  See github for more info: https://github.com/sscholle/oRGB-LED
 */
 #include <Arduino.h>
 
@@ -12,12 +24,10 @@ const uint8_t GREEN_LED = 9;
 const uint8_t RED_LED = 10;
 const uint8_t BLUE_LED = 11;
 
-
 uint8_t SAME_COLOR_ITERATIONS = 4;
 uint8_t GENERAL_DELAY = 3;
 uint8_t MAX_BRIGHTNESS = 64;
 uint8_t MIN_BRIGHTNESS = 2;
-
 
 uint8_t G_BRIGHT = MIN_BRIGHTNESS;
 uint8_t G_FADEAMNT = 1;
@@ -59,7 +69,6 @@ void iterateCurrentColor(int iterations){
 
 // the setup routine runs once when you press reset:
 void setup() {
-  // declare pin 9 to be an output:
   pinMode(GREEN_LED, OUTPUT);
   pinMode(RED_LED, OUTPUT);
   pinMode(BLUE_LED, OUTPUT);
@@ -88,6 +97,3 @@ void loop() {
 
   iterateCurrentColor(SAME_COLOR_ITERATIONS);
 }
-
-
-
